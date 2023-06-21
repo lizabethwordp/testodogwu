@@ -1,0 +1,19 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import { act } from "react-dom/test-utils";
+import View from "../View";
+import Index from '../index'
+
+// describe("View Component", () => {
+//   test("renders without crashing", () => {
+//     const div = document.createElement("div");
+//     act(() => {
+//       ReactDOM.render(<View />, div);
+//     });
+//     ReactDOM.unmountComponentAtNode(div);
+//   });
+// });
+
+test('renders without error', () => {
+  render(<Index />);
+})

@@ -1,23 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+/* istanbul ignore file */
+import './index.css';
+import Landing from './Landing';
+import Sliding from './Sliding.jsx';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="overlay"></div>
+      <Sliding />
+      <Landing className="content"/>
     </div>
   );
 }

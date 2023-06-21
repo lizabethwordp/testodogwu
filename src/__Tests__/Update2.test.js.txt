@@ -1,0 +1,85 @@
+import { render, screen, fireEvent } from "@testing-library/react";
+import { rest } from "msw";
+import { setupServer } from "msw/node";
+import Update from "../Update";
+
+const id = "1";
+
+// Set up a mock server
+const server = setupServer(
+  // Mock GET request to fetch customer data
+  rest.get(`http://localhost:3030/api/items/${id}`, (req, res, ctx) => {
+    ({ id } = req.params);
+    // Mock response data
+    const mockCustomer = {
+      id: "1",
+      firstName: "John",
+      lastName: "Doe",
+      bvn: "1234567890",
+      dateOfBirth: "1990-01-01",
+      phoneNumber: "1234567890",
+      email: "john.doe@example.com",
+      password: "password",
+      confirmPassword: "password",
+      acctType: "Savings",
+    };
+    return res(ctx.json(mockCustomer));
+  }),
+
+  // Mock PUT request to update customer data
+  rest.put(`http://localhost:3030/api/items/${id}`, (req, res, ctx) => {
+    const { id } = req.params;
+    const updatedCustomer = req.body;
+    // Mock response data
+    const mockResponse = { id, ...updatedCustomer };
+    return res(ctx.json(mockResponse));
+  })
+);
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+describe("Update component", () => {
+  it("should fetch and display customer data", async () => {
+    render(<Update />);
+
+    // Wait for the customer data to be fetched and displayed
+    const firstNameInput = await screen.findByLabelText("First name");
+    const lastNameInput = await screen.findByLabelText("Last name");
+
+    expect(firstNameInput.value).toBe("John");
+    expect(lastNameInput.value).toBe("Doe");
+  });
+
+  it("should update customer data on form submit", async () => {
+    render(<Update />);
+
+    // Wait for the customer data to be fetched and displayed
+    const firstNameInput = await screen.findByLabelText("First name");
+    const lastNameInput = await screen.findByLabelText("Last name");
+    const submitButton = screen.getByRole("button", { name: "Update" });
+
+    // Modify customer data
+    fireEvent.change(firstNameInput, { target: { value: "Jane" } });
+    fireEvent.change(lastNameInput, { target: { value: "Smith" } });
+
+    // Mock the PUT request response
+    server.use(
+      rest.put(`http://localhost:3030/api/items/${id}`, (req, res, ctx) => {
+        const { id } = req.params;
+        const updatedCustomer = req.body;
+        // Return the updated customer data
+        const mockResponse = { id, ...updatedCustomer };
+        return res(ctx.json(mockResponse));
+      })
+    );
+
+    // Submit the form
+    fireEvent.click(submitButton);
+
+    // Wait for the success message or redirection
+    const successMessage = await screen.findByText("Data updated successfully");
+    expect(successMessage).toBeInTheDocument();
+  });
+});

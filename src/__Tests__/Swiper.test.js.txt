@@ -1,0 +1,25 @@
+import React from "react";
+import { render, unmountComponentAtNode } from "react-dom";
+import { act } from "react-dom/test-utils";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Sliding from "../Sliding";
+
+describe("Sliding Component", () => {
+  test("renders the Swiper component with slides", async () => {
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+
+    await act(async () => {
+      render(<Sliding />, container);
+    });
+
+    const swiperContainer = container.querySelector(".mySwiper");
+    const swiperSlides = swiperContainer.querySelectorAll(".swiper-slide");
+
+    expect(swiperContainer).toBeInTheDocument();
+    expect(swiperSlides.length).toBe(3);
+
+    unmountComponentAtNode(container);
+    container.remove();
+  });
+});
