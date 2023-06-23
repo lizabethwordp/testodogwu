@@ -12,7 +12,8 @@ export default function List() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        await axios.get("http://localhost:3030/api/items")
+        // await axios.get("http://localhost:3030/api/items")
+        await axios.get("http://localhost:4040/users/")
           .then((response) => {
             setCustomers(response.data);
             // console.log(customers);
@@ -37,7 +38,8 @@ export default function List() {
     // console.log(_id)
     // console.log(id)
     axios
-      .delete(`http://localhost:3030/api/items/${id}`)
+      // .delete(`http://localhost:3030/api/items/${id}`)
+      .delete(`http://localhost:4040/users/${id}`)
       .then((response) => {
         toast.error(response.message);
         if (customers) {

@@ -66,7 +66,7 @@ export default function SignUpPage2() {
       if (customer.acctType) {
         if (customer.password === customer.confirmPassword) {
           // axios.post("http://localhost:3030/api/items", customer);
-          axios.post("http://localhost:4040/users", customer)
+          axios.post("http://localhost:4040/users/", customer)
             .then((response) => {
               // console.log(response);
               if (response.stack) {

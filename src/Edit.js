@@ -67,7 +67,8 @@ export default function Edit() {
       setLoading(true);
       try {
         // await fetch(`http://localhost:5000/api/employees/${_id}`, {
-        await fetch(`http://localhost:3030/api/items/${id}`, {
+        // await fetch(`http://localhost:3030/api/items/${id}`, {
+        await fetch(`http://localhost:4040/users/${id}`, {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -101,7 +102,8 @@ export default function Edit() {
       if (customer.acctType) {
         if (customer.password === customer.confirmPassword) {
           // fetch(`http://localhost:5000/api/employees/${_id}`, {
-          fetch(`http://localhost:3030/api/items/${id}`, {
+          // fetch(`http://localhost:3030/api/items/${id}`, {
+          fetch(`http://localhost:4040/users/${id}`, {
             method: "PUT",
             headers: {
               Accept: "application/json",

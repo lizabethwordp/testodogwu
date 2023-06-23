@@ -27,7 +27,7 @@ function Landing() {
       password: customer.password
     };
     // await axios.post("http://localhost:3030/api/items/login", customerData)
-    await axios.post("http://localhost:4040/users", customerData)
+    await axios.post("http://localhost:4040/users/login", customerData)
     .then((response) => {
       if ((response.data.role)) {
         localStorage.setItem("customer", JSON.stringify(response.data));
