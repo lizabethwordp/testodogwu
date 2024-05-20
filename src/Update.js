@@ -21,6 +21,7 @@ import "./index.css";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import baseURL from "./config";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -69,7 +70,8 @@ export default function Update() {
       try {
         // await fetch(`http://localhost:5000/api/employees/${_id}`, {
         // await fetch(`http://localhost:3030/api/items/`+id, {
-        await fetch(`http://localhost:4040/users/`+id, {
+        // await fetch(`http://localhost:4040/users/`+id, {
+        await fetch(`${baseURL}${id}`, {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -105,7 +107,8 @@ export default function Update() {
         if (customer.password === customer.confirmPassword) {
           // fetch(`http://localhost:5000/api/employees/${_id}`, {
           // fetch(`http://localhost:3030/api/items/`+id, {
-          fetch(`http://localhost:4040/users/`+id, {
+          // fetch(`http://localhost:4040/users/`+id, {
+          fetch(`${baseURL}${id}`, {
             method: "PUT",
             headers: {
               Accept: "application/json",

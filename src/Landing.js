@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import odogwu from "./ODOGWU1.svg";
 import axios from "axios";
+import baseURL from "./config";
 
 function Landing() {
   const [customer, setCustomer] = React.useState({
@@ -27,7 +28,7 @@ function Landing() {
       password: customer.password
     };
     // await axios.post("http://localhost:3030/api/items/login", customerData)
-    await axios.post("http://localhost:4040/users/login", customerData)
+    await axios.post(`${baseURL}login`, customerData)
     .then((response) => {
       if ((response.data.role)) {
         localStorage.setItem("customer", JSON.stringify(response.data));
