@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testodogwu-fe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testodogwu-fe
+  template:
+    metadata:
+      labels:
+        app: testodogwu-fe
+    spec:
+      containers:
+      - name: testodogwu-fe
+        image: testodogwu-frontend-image
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "200m"
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: testodogwu-cm
+          mountPath: '/app/.env'
+          subPath: .env
+      volumes:
+      - name: testodogwu-cm
+        configMap:
+          name: testodogwu-cm
+
