@@ -21,6 +21,7 @@ import "./index.css";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import baseURL from "./config";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -58,7 +59,7 @@ export default function SignUpPage2() {
   const [errorMessage, setErrorMessage] = React.useState("");
   // console.log(errorMessage);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     if (!agreed) {
       toast.error("Please accept the Policy to move on.");
@@ -66,7 +67,8 @@ export default function SignUpPage2() {
       if (customer.acctType) {
         if (customer.password === customer.confirmPassword) {
           // axios.post("http://localhost:3030/api/items", customer);
-          axios.post("http://localhost:4040/users/", customer)
+          // axios.post("http://localhost:4040/users/", customer)
+          await axios.post(`${baseURL}`, customer)
             .then((response) => {
               // console.log(response);
               if (response.stack) {
