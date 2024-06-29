@@ -52,7 +52,15 @@ resource "aws_security_group" "instance_sg" {
     protocol    = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  # Ingress rule to allow traffic to NodePort range (example)
+   # Ingress rule to allow traffic to docker range
+  ingress {
+    from_port   = 5000
+    to_port     = 5000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Allow traffic from any IP address
+  }
+
+  # Ingress rule to allow traffic to NodePort range 
   ingress {
     from_port   = 30000
     to_port     = 32767
